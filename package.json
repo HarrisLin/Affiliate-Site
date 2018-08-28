@@ -2,9 +2,10 @@
   "name": "server",
   "version": "1.0.0",
   "scripts": {
-    "client": "cd ../client/thc-junct/ && npm start",
+    "client": "cd client/thc-junct/ && npm start",
     "server": "node server.js",
-    "dev": "concurrently --kill-others-on-fail \"yarn server\" \"yarn client\""
+    "dev": "concurrently --kill-others-on-fail \"yarn server\" \"yarn client\"",
+    "start": "yarn server.js"
   },
   "dependencies": {
     "bcrypt-nodejs": "0.0.3",
