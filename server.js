@@ -18,7 +18,7 @@ const app = express()
 
 var url = 'mongodb://localhost/accounts'
 
-mongoose.connect(url, function(err) {
+mongoose.connect(process.env.MONGODB_URI || url, function(err) {
 	if(err) console.log("Failed to connect to db");
 	else console.log("DB Connection Success");
 });
@@ -34,9 +34,6 @@ app.use(bodyParser.urlencoded({ extended: true })); // get information from html
 app.use(bodyParser.json()); // get information from html forms
 app.use(cors())	// enable cors
 app.options('*', cors())
-
-//probably wont need later
-app.set('view engine', 'ejs'); // set up ejs for templating
 
 // required for passport
 require('./config/passport')(passport); // pass passport for configuration
