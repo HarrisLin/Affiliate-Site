@@ -18,7 +18,7 @@ const app = express()
 
 var url = 'mongodb://localhost/accounts'
 
-mongoose.connect(url, function(err) {
+mongoose.connect(process.env.MONGODB_URI || url, function(err) {
 	if(err) console.log("Failed to connect to db");
 	else console.log("DB Connection Success");
 });
@@ -35,9 +35,6 @@ app.use(bodyParser.json()); // get information from html forms
 app.use(cors())	// enable cors
 app.options('*', cors())
 
-//probably wont need later
-app.set('view engine', 'ejs'); // set up ejs for templating
-
 // required for passport
 require('./config/passport')(passport); // pass passport for configuration
 app.enable('trust proxy')
@@ -53,10 +50,11 @@ app.use(passport.initialize());
 app.use(passport.session()); // persistent login sessions
 app.use(flash()); // use connect-flash for flash messages stored in session
 
-app.use(express.static(__dirname + '/media'))
 app.use('/media', express.static(__dirname + '/media'));
+app.use('/', express.static(__dirname + '/client/thc-junct/build'));
+
 require('./routes/accounts.js')(app, passport);
 require('./routes/products.js')(app);
 
-
-app.listen(8080, () => console.log("Listening on port 8080"));
+const port = process.env.PORT || 8080;
+app.listen(port, () => console.log("Listening on port: " + port));

@@ -4,8 +4,10 @@
   "scripts": {
     "client": "cd client/thc-junct/ && npm start",
     "server": "node server.js",
-    "dev": "concurrently --kill-others-on-fail \"yarn server\" \"yarn client\"",
-    "start": "yarn server.js"
+    "dev": "concurrently --kill-others-on-fail \"yarn server\" \"yarn client\"", 
+    "start": "yarn server",
+    "startClient": "cd client/thc-junct/ && npm install && npm run build",
+    "heroku-postbuild": "yarn startClient"
   },
   "dependencies": {
     "bcrypt-nodejs": "0.0.3",
