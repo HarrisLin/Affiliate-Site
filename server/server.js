@@ -53,6 +53,10 @@ app.use(passport.initialize());
 app.use(passport.session()); // persistent login sessions
 app.use(flash()); // use connect-flash for flash messages stored in session
 
+app.use(express.static(__dirname + '/media'))
+app.use('/media', express.static(__dirname + '/media'));
 require('./routes/accounts.js')(app, passport);
+require('./routes/products.js')(app);
+
 
 app.listen(8080, () => console.log("Listening on port 8080"));

@@ -1,112 +1,59 @@
-var { saveShippingInfo, getShippingInfo } = require('../models/profile')
+var multer = require('multer');
+var { findProduct, writeReview, getProduct, getMostRecentReviews } = require('../models/productHelper')
+
+function cleanName(name){
+    var result = name.toLowerCase();
+    return result.replace(/\W+/g, '');
+}
+
+const storage = multer.diskStorage({
+    destination(req, file, cb) {
+      cb(null, 'media/')
+    },
+    filename(req, file, cb) {
+      var fileName = req.body.name
+      cb(null, `${fileName}.jpg`)
+    }
+  })
+var upload = multer({ storage: storage})
 
 module.exports = function(app) {
 
-    //Homepage
-    app.get('/dev', function(req, res) {
-        res.json({
-            express:"hello wordly"
+    //List of products to subscribe to
+    app.get('/dev/product', function(req, res) { 
+        getProduct(req.query.name).then(function(result){
+            if(res != null) {
+                res.status(200).json({product: result});
+            } else {
+                res.status(400).send();
+            }
+
         });
-        //res.render('index.ejs'); // load the index.ejs file
     });
 
-    //Login form
-    /*app.get('/dev/login', function(req, res) {
+    app.post('/dev/product', upload.single('image'), function(req, res) {
+        console.log(req.body.name)
+        req.body.author = req.user.local.email;
+        req.body.path   = req.file.path;
+        req.body.name = req.body.name;
+        writeReview(req.body).then(function(success){
+            if(success) return res.status(200).json({message: "Product review posted!"});
+            else return res.status(400).json({message: "Failed to write review, possibly duplicate product name already exists"});
+        })
+    });
 
-        // render the page and pass in any flash data if it exists
-        res.render('login.ejs', { message: req.flash('loginMessage') }); 
+    app.get('/dev/recentReviewList', function(req, res){
+        getMostRecentReviews().exec(function(err, result){
+            if (err){
+                return res.status(400).send();
+            }
+            res.status(200).json({reviews: result});
+        });
+    });
+    //to add a new product 
+    /*app.put('/dev/product', /*add middleware for admin check function(req, res){
+
     });*/
-
-    // process the login form
-    app.post('/dev/login', function(req, res, next){
-        passport.authenticate('local-login', function(err, user, info) {
-            if(err) { return next(err); }
-            if(!user) {
-                return res.json({
-                    message: "Failed to log in"
-                });
-            }
-
-            req.logIn(user, function(error) {
-                if (error) return next(error);
-
-                res.header('Access-Control-Allow-Credentials', true);
-                res.json({
-                    message: "Successful login"
-                }).send();
-            });
-
-        })(req, res, next);
-    });
-
-    // =====================================
-    // SIGNUP ==============================
-    // =====================================
-    // show the signup form
-    app.get('/dev/signup', function(req, res) {
-        res.json({
-            success:"success"
-        });
-        // render the page and pass in any flash data if it exists
-        //res.render('signup.ejs', { message: req.flash('signupMessage') });
-    });
-
-    // process the signup form
-    app.post('/dev/signup', function(req, res, next){
-        passport.authenticate('local-signup', function(err, user, info) {
-            if(err) { return next(err); }
-            if(!user) {
-                return res.status(400).json({
-                    message: "Email already taken"
-                });
-            }
-
-            res.status(200).json({
-                message: "Signup successful"
-            })
-        })(req, res, next);
-    });
-
-    app.post('/dev/update-profile', isLoggedIn, function(req, res){
-        console.log(req.body)
-        if(!saveShippingInfo(req.user.local.email, req.body)) {
-            return res.status(400).json({
-                message: "Profile update failed"
-            }).send();
-        }
-        res.status(200).json({
-            message: "Profile update successful"
-        }).send();
-    });
-
-    // =====================================
-    // PROFILE SECTION =====================
-    // =====================================
-    // we will want this protected so you have to be logged in to visit
-    // we will use route middleware to verify this (the isLoggedIn function)
-    app.get('/dev/profile', isLoggedIn, function(req, res) {
-        getShippingInfo(req.user.local.email).then(function(info){
-            res.json({
-                email: req.user.local.email,
-                shipping: info,
-            });
-        });        
-    });
-
-    //fix log out, current doesnt delete all related sessions, so doesnt actually log out 
-    app.get('/dev/logout', function(req, res) {
-        console.log(req.session.id)
-        req.session.destroy(function (err) {
-            if(err) return res.status(400).json({ message: 'Error Logging Out'})
-            //probably dont need dis, just send status 200
-            res.send();
-        });
-    });
-
-    app.get('/dev/loggedin', isLoggedIn, function(req, res){
-        console.log("Here")
-        res.status(200).send();
-    });
 };
 
 // route middleware to make sure a user is logged in

@@ -19,7 +19,15 @@
 }
 
 .App-intro {
-  font-size: large;
+  font-size: 300%;
+  font-family: "Comic Sans MS"
+}
+
+.accButt {
+  margin: 1%;
+  background-color: white;
+  border-radius: 10px;
+  cursor: pointer;
 }
 
 @keyframes App-logo-spin {

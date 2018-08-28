@@ -88,38 +88,36 @@ class Profile extends Component {
     return (
       <div>
         <div className="container">
-          <div className="col-sm-6 col-sm-offset-3">
-            <h1><span className="fa fa-sign-in" /> Profile</h1>
-            {this.state.message && <div>{this.state.message}</div>}
-            <form onSubmit={this.handleSubmit}>
-              <div className="form-group">
-                <label>Email</label>
-                <input type="text" className="form-control" name="email" value={this.state.userEmail} readOnly/>
-              </div>
-              <div className="form-group">
-                <label>Country</label>
-                <input id="country" type="text" className="form-control" name="country"
-                   value={this.state.country} onChange={this.handleCountryChange}/>
-              </div>
-              <div className="form-group">
-                <label>Province</label>
-                <input id="province" type="text" className="form-control" name="province"
-                   value={this.state.province} onChange={this.handleProvinceChange}/>
-              </div>
-              <div className="form-group">
-                <label>Address</label>
-                <input id="address" type="text" className="form-control" name="address"
-                   value={this.state.address} onChange={this.handleAddressChange}/>
-              </div>
-              <div className="form-group">
-                <label>Postal Code</label>
-                <input id="postalCode" type="text" className="form-control" name="postalCode"
-                   value={this.state.postalCode} onChange={this.handlePostalChange}/>
-              </div>
-              <button type="submit" className="btn btn-warning btn-lg">Update</button>
-            </form>
-            <hr />
-          </div>
+          <h1><span className="fa fa-sign-in" /> Profile</h1>
+          {this.state.message && <div>{this.state.message}</div>}
+          <form onSubmit={this.handleSubmit}>
+            <div className="form-group">
+              <label>Email</label>
+              <input type="text" className="form-control" name="email" value={this.state.userEmail} readOnly/>
+            </div>
+            <div className="form-group">
+              <label>Country</label>
+              <input id="country" type="text" className="form-control" name="country"
+                 value={this.state.country} onChange={this.handleCountryChange}/>
+            </div>
+            <div className="form-group">
+              <label>Province</label>
+              <input id="province" type="text" className="form-control" name="province"
+                 value={this.state.province} onChange={this.handleProvinceChange}/>
+            </div>
+            <div className="form-group">
+              <label>Address</label>
+              <input id="address" type="text" className="form-control" name="address"
+                 value={this.state.address} onChange={this.handleAddressChange}/>
+            </div>
+            <div className="form-group">
+              <label>Postal Code</label>
+              <input id="postalCode" type="text" className="form-control" name="postalCode"
+                 value={this.state.postalCode} onChange={this.handlePostalChange}/>
+            </div>
+            <button type="submit" className="btn btn-warning btn-lg">Update</button>
+          </form>
+          <hr />
         </div>
       </div>
     );

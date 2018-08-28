@@ -34,9 +34,10 @@ ReactDOM.render(
 	<Router>
 		<div>
 			<Route path='/' component={App} />
-			/*<Route path='/signup' component={Signup} />
+      {/*<Route path='/product' component={ProductReview} />
+			<Route path='/signup' component={Signup} />
 			<Route path='/login' component={Login} />
-			<PrivateRoute path='/profile' component={Profile} />*/
+			<PrivateRoute path='/profile' component={Profile} />*/}
 		</div>
 	</Router>,
   	document.getElementById('root')

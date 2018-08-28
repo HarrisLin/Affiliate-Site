@@ -7,22 +7,14 @@ module.exports = function(app, passport) {
         res.json({
             express:"hello wordly"
         });
-        //res.render('index.ejs'); // load the index.ejs file
     });
-
-    //Login form
-    /*app.get('/dev/login', function(req, res) {
-
-        // render the page and pass in any flash data if it exists
-        res.render('login.ejs', { message: req.flash('loginMessage') }); 
-    });*/
 
     // process the login form
     app.post('/dev/login', function(req, res, next){
         passport.authenticate('local-login', function(err, user, info) {
             if(err) { return next(err); }
             if(!user) {
-                return res.json({
+                return res.status(400).json({
                     message: "Failed to log in"
                 });
             }
@@ -37,18 +29,6 @@ module.exports = function(app, passport) {
             });
 
         })(req, res, next);
-    });
-
-    // =====================================
-    // SIGNUP ==============================
-    // =====================================
-    // show the signup form
-    app.get('/dev/signup', function(req, res) {
-        res.json({
-            success:"success"
-        });
-        // render the page and pass in any flash data if it exists
-        //res.render('signup.ejs', { message: req.flash('signupMessage') });
     });
 
     // process the signup form
@@ -68,7 +48,6 @@ module.exports = function(app, passport) {
     });
 
     app.post('/dev/update-profile', isLoggedIn, function(req, res){
-        console.log(req.body)
         if(!saveShippingInfo(req.user.local.email, req.body)) {
             return res.status(400).json({
                 message: "Profile update failed"
@@ -104,7 +83,6 @@ module.exports = function(app, passport) {
     });
 
     app.get('/dev/loggedin', isLoggedIn, function(req, res){
-        console.log("Here")
         res.status(200).send();
     });
 };
@@ -117,6 +95,5 @@ function isLoggedIn(req, res, next) {
         return next();
     }
 
-    // fix error code
-    res.status(300).send();
+    res.status(400).json({message: 'Failed to Authenticate'});
 }

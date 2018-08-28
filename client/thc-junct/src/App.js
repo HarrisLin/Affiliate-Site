@@ -9,6 +9,8 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import Signup from './components/signup'
 import Login from  './components/login'
 import Profile from './components/profile'
+import Review from './components/writeReview'
+import Homepage from './components/homepage'
 
 var Auth = require('./modules/Auth')
 
@@ -18,49 +20,77 @@ class App extends Component {
     super(props);
     this.state = {
       response: '',
+      homepage: true,
       loginRedirect: false, // separate these into own render functions later on
       signupRedirect: false,
       profileRedirect: false,
+      reviewRedirect: false,
     }
   }
 
   componentDidMount() {
-    console.log(Auth.checkAuth())
+    /*console.log(Auth.checkAuth())
     this.callApi()
       .then(res => this.setState({ response: res.express }))
-      .catch(err => console.log(err));
+      .catch(err => console.log(err));*/
   };
 
   callApi = async function() {
-    var response = await fetch('/dev');
+    /*var response = await fetch('/dev');
     var body = await response.json();
 
     if(response.status !== 200) throw Error(body.message);
 
-    return body;
+    return body;*/
   }
 
   loginClick = () => {
     this.setState({
+      homepage: false,
       loginRedirect: true,
       signupRedirect: false,
       profileRedirect: false,
+      reviewRedirect: false,
     });
   }
 
   signupClick = () => {
     this.setState({
+      homepage: false,
       loginRedirect: false,
       signupRedirect: true,
       profileRedirect: false,
+      reviewRedirect: false,
     });
   }
 
   profileClick = () => {
     this.setState({
+      homepage: false,
       loginRedirect: false,
       signupRedirect: false,
       profileRedirect: true,
+      reviewRedirect: false,
+    });
+  }
+
+  reviewClick = () => {
+    this.setState({
+      homepage: false,
+      loginRedirect: false,
+      signupRedirect: false,
+      profileRedirect: false,
+      reviewRedirect: true,
+    });
+  }
+
+  homeClick = () => {
+    this.setState({
+      homepage: true,
+      loginRedirect: false,
+      signupRedirect: false,
+      profileRedirect: false,
+      reviewRedirect: false,
     });
   }
 
@@ -78,19 +108,19 @@ class App extends Component {
     return (
       <div className="App">
         <header className="App-header">
-          <h1 className="App-title">Sockscription</h1>
-          { Auth.isAuth() ? null : <button onClick={this.loginClick}>Login</button> }
-          { Auth.isAuth() ? null : <button onClick={this.signupClick}>Sign Up</button>}
+          <h1 className="App-title" onClick={this.homeClick}>Reviews</h1>
+          { Auth.isAuth() ? null : <button className="accButt" onClick={this.loginClick}>Login</button> }
+          { Auth.isAuth() ? null : <button className="accButt" onClick={this.signupClick}>Sign Up</button>}
           
-          { Auth.isAuth() && <button onClick={this.profileClick}>Profile</button>}
-          { Auth.isAuth() && <button onClick={this.logoutClick}>Logout</button>}
+          { Auth.isAuth() && <button className="accButt" onClick={this.profileClick}>Profile</button>}
+          { Auth.isAuth() && <button className="accButt" onClick={this.reviewClick}>Post Review</button>}
+          { Auth.isAuth() && <button className="accButt" onClick={this.logoutClick}>Logout</button>}
         </header>
-        <p className="App-intro">
-          {this.state.response}
-        </p>
+        { this.state.homepage && <Homepage />}
         { this.state.loginRedirect && <Login />}
         { this.state.signupRedirect && <Signup />}
-        { this.state.profileRedirect && <Profile/>}
+        { this.state.profileRedirect && <Profile />}
+        { this.state.reviewRedirect && <Review />}
       </div>
     );
   }

@@ -1,0 +1,22 @@
+.icon {
+	margin: 1%;
+	padding: 1%;
+	width: 23%;
+	float: left;
+	background-color: black;
+	border: groove;
+	border-radius: 25px;
+	border-colour: blue;
+	font-family: "Comic Sans MS";
+	font-size: 200%;
+	color: white;
+	cursor: pointer;
+}
+
+.icon img {
+	width: 90%;
+	height: 200px;
+	margin: auto;
+	border: groove;
+	border-radius: 25px;
+}

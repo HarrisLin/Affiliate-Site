@@ -10,7 +10,7 @@ class Login extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      response: '',
+      message: null,
       profileRedirect: false,
     }
 
@@ -46,6 +46,9 @@ class Login extends Component {
       Auth.checkAuth();
       window.location.reload();
     }
+    if(response.status === 400) {
+      this.setState({message: body.message})
+    }
   };
 
  /*callApi = async function() {
@@ -70,23 +73,21 @@ class Login extends Component {
 
     return (
       <div className="container">
-        <div className="col-sm-6 col-sm-offset-3">
-          <h1><span className="fa fa-sign-in" /> Login</h1>
-          <form onSubmit={this.handleSubmit}>
-            <div className="form-group">
-              <label>Email</label>
-              <input type="text" className="form-control" name="email" />
-            </div>
-            <div className="form-group">
-              <label>Password</label>
-              <input type="password" className="form-control" name="password" />
-            </div>
-            <button type="submit" className="btn btn-warning btn-lg">Login</button>
-          </form>
-          <hr />
-          <p>Need an account? <a href="/signup">Signup</a></p>
-          <p>Or go <a href="/">home</a>.</p>
-        </div>
+        <h1><span className="fa fa-sign-in" /> Login</h1>
+        {this.state.message && <div className="warning">{this.state.message}</div>}
+        <form onSubmit={this.handleSubmit}>
+          <div className="form-group">
+            <label>Email</label>
+            <input type="text" className="form-control" name="email" />
+          </div>
+          <div className="form-group">
+            <label>Password</label>
+            <input type="password" className="form-control" name="password" />
+          </div>
+          <button type="submit" className="btn btn-warning btn-lg">Login</button>
+        </form>
+        <hr />
+        <p>Go to <a href="/">home</a>.</p>
       </div>
     );
   }

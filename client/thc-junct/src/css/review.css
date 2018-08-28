@@ -1,0 +1,44 @@
+.reviewIcon {
+	font-size: 600%;
+	font-family: "courier new";
+}
+
+.reviewIcon img {
+	width: 40%;
+	height: auto;
+}
+
+.review {
+	margin: 5%;
+}
+
+.review .credentials {
+	width: 60%;
+	border: solid;
+	border-radius: 25px;
+	margin: auto;
+	padding: 3%;
+	padding-top: 3%;
+}
+
+.review .author {
+	float: top;
+	display: block;
+	margin: 2%;
+}
+
+.review .date {
+	float: top;
+	display:block;
+	margin: 2%;
+}
+
+.review .reviewText {
+	margin: auto;
+	margin-top: 5%;
+	padding: 3%;
+	border-style: outset;
+	border-top-left-radius: 25px;
+	border-bottom-right-radius: 25px;
+	width: 70%;
+}
