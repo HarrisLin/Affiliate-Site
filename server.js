@@ -58,5 +58,5 @@ app.use('/media', express.static(__dirname + '/media'));
 require('./routes/accounts.js')(app, passport);
 require('./routes/products.js')(app);
 
-
-app.listen(8080, () => console.log("Listening on port 8080"));
+const port = process.env.PORT || 8080;
+app.listen(port, () => console.log("Listening on port: " + port));
