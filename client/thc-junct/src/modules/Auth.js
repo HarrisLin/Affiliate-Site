@@ -1,6 +1,6 @@
 var Auth = (function() {
 	var authenticated = JSON.parse(localStorage.getItem('authenticated')) || false;
-	console.log("bleh : " + authenticated);
+
 	function checkAuth(){
 		fetch('/dev/loggedin', {
 			method: 'get',

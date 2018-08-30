@@ -1,6 +1,4 @@
 import React, { Component } from 'react';
-/*import logo from './logo.svg';
-import './App.css';*/
 
 class Signup extends Component {
 
@@ -45,19 +43,8 @@ class Signup extends Component {
     }
   };
 
- /*callApi = async function() {
-    var response = await fetch('/dev');
-    var body = await response.json();
-
-    if(response.status !== 200) throw Error(body.message);
-
-    return body;
-  }*/
-
   componentDidMount() {
-    /*this.callApi()
-      .then(res => this.setState({ response: res.express }))
-      .catch(err => console.log(err));*/
+
   };
 
   render() {

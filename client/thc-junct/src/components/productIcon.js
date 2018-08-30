@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
 import { Redirect } from 'react-router-dom';
-/*import logo from './logo.svg';
-import './App.css';*/
 import '../css/icon.css'
+var defaultImage = require('../images/UnavailableImage.png')
 
 class ProductIcon extends Component {
 
@@ -13,26 +12,15 @@ class ProductIcon extends Component {
     }
   }
 
- /*callApi = async function() {
-    var response = await fetch('/dev');
-    var body = await response.json();
-
-    if(response.status !== 200) throw Error(body.message);
-
-    return body;
-  }*/
-
   componentDidMount() {
-    /*this.callApi()
-      .then(res => this.setState({ response: res.express }))
-      .catch(err => console.log(err));*/
+
   };
 
   render() {
     return (
       <div className="icon" onClick={this.props.onClick}>
         <div className="title">{this.props.name}</div>
-        <img src={this.props.image}/>
+        <img src={this.props.image} onError={(e) =>{e.target.src=defaultImage}}/>
       </div>
     );
   }

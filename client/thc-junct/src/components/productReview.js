@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import '../css/review.css'
+var defaultImage = require('../images/UnavailableImage.png')
 
 class ProductReview extends Component {
 
@@ -13,7 +14,7 @@ class ProductReview extends Component {
   }
 
   loadPageCall = async function() {
-    var url = '/dev/product?name=' + this.props.name.replace('/\s+/', '+');
+    var url = '/dev/product?name=' + this.props.name.replace('/s+/', '+');
     var response = await fetch(url, {
       method: 'get',
       credentials: 'same-origin',
@@ -30,12 +31,11 @@ class ProductReview extends Component {
           product : res.product,
           productLoaded : true,
         });
-      })
-      .catch(err => console.log(err));
+      }).catch(err => console.log(err));
   };
 
   loadComments = () => {
-    if(this.state.product.comments.length == 0) return null;
+    if(this.state.product.comments.length === 0) return null;
     var commentList = this.state.product.comments.map(function(comment, i) {
       return (<div className="comments">
                 <span className="author">{comment.author}</span>
@@ -46,12 +46,12 @@ class ProductReview extends Component {
     return commentList;
   }
 
-  loadImage = () => {
+  createImage = () => {
     //TODO dont hardcode url later
-    var imageLocation = 'http://localhost:8080/'+this.state.product.imagePath;
+    var imageURL = 'http://localhost:8080/'+this.state.product.imagePath;
     return (<div className="reviewIcon">
       <div className="title">{this.state.product.name}</div>
-      <img src={imageLocation}/>
+      <img src={imageURL} alt="Product" onError={(e) =>{e.target.src=defaultImage}}/>
     </div>)
   }
 
@@ -77,7 +77,7 @@ class ProductReview extends Component {
         <div><span className="fa fa-sign-in" /> {this.state.name}</div>
         {this.state.message && <div>{this.state.message}</div>}
 
-        {this.state.productLoaded && this.loadImage()}
+        {this.state.productLoaded && this.createImage()}
         {this.state.productLoaded && this.loadReview()}
       </div>
     );

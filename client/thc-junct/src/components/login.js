@@ -1,7 +1,5 @@
 import React, { Component } from 'react';
 import { Redirect } from 'react-router-dom';
-/*import logo from './logo.svg';
-import './App.css';*/
 
 var Auth = require('../modules/Auth')
 
@@ -41,7 +39,7 @@ class Login extends Component {
     var body = await response.json();
 
     if(response.status === 200) {
-      await Auth.checkAuth();
+      Auth.checkAuth();
       window.location.reload();
     }
     if(response.status === 400) {
