@@ -1,6 +1,4 @@
 import React, { Component } from 'react';
-/*import logo from './logo.svg';
-import './App.css';*/
 import '../css/review.css'
 
 class ProductReview extends Component {
@@ -22,7 +20,6 @@ class ProductReview extends Component {
     });
     var body = await response.json();
     if(response.status !== 200) throw Error(body.message);
-    console.log(response)
     return body;
   }
 
@@ -76,15 +73,12 @@ class ProductReview extends Component {
 
   render() {
     return (
-      <div>
-        <div className="container">
-          <h1><span className="fa fa-sign-in" /> {this.state.name}</h1>
-          {this.state.message && <div>{this.state.message}</div>}
-          <hr />
+      <div className="container">
+        <div><span className="fa fa-sign-in" /> {this.state.name}</div>
+        {this.state.message && <div>{this.state.message}</div>}
 
-          {this.state.productLoaded && this.loadImage()}
-          {this.state.productLoaded && this.loadReview()}
-        </div>
+        {this.state.productLoaded && this.loadImage()}
+        {this.state.productLoaded && this.loadReview()}
       </div>
     );
   }
