@@ -1,0 +1,7 @@
+.backButton {
+	margin: 1%;
+	background-color: white;
+	border-radius: 10px;
+	cursor: pointer;
+	float: left;
+}

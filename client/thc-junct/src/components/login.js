@@ -10,8 +10,7 @@ class Login extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      message: null,
-      profileRedirect: false,
+      message: null
     }
 
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -42,8 +41,7 @@ class Login extends Component {
     var body = await response.json();
 
     if(response.status === 200) {
-      this.setState({profileRedirect: true});
-      Auth.checkAuth();
+      await Auth.checkAuth();
       window.location.reload();
     }
     if(response.status === 400) {
@@ -51,26 +49,11 @@ class Login extends Component {
     }
   };
 
- /*callApi = async function() {
-    var response = await fetch('/dev');
-    var body = await response.json();
-
-    if(response.status !== 200) throw Error(body.message);
-
-    return body;
-  }*/
-
   componentDidMount() {
-    /*this.callApi()
-      .then(res => this.setState({ response: res.express }))
-      .catch(err => console.log(err));*/
+
   };
 
   render() {
-    if (this.state.profileRedirect) {
-      return <Redirect to='/' />
-    }
-
     return (
       <div className="container">
         <h1><span className="fa fa-sign-in" /> Login</h1>

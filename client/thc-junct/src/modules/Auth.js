@@ -1,19 +1,25 @@
 var Auth = (function() {
-	var authenticated = false;
-
+	var authenticated = JSON.parse(localStorage.getItem('authenticated')) || false;
+	console.log("bleh : " + authenticated);
 	function checkAuth(){
 		fetch('/dev/loggedin', {
 			method: 'get',
 			credentials: 'same-origin',
 		}).then(function(res){
-			if(res.status === 200) authenticated = true;
-			else authenticated = false;
+			if(res.status === 200) {
+				authenticated = true;
+				localStorage.setItem('authenticated', JSON.stringify(true));
+			} else {
+				authenticated = false;
+				localStorage.setItem('authenticated', JSON.stringify(false));
+			}
 		});
 	}
 
-	function login(){ authenticated = true;}
-
-	function logout(){ authenticated = false; }
+	function logout(){
+		authenticated = false;
+		localStorage.setItem('authenticated', JSON.stringify(false));
+	}
 
 	function isAuth(){ return authenticated; }
 
@@ -21,7 +27,6 @@ var Auth = (function() {
 		checkAuth: checkAuth,
 		isAuth	 : isAuth,
 		logout   : logout,
-		login    : login,
 	}
 })();
 

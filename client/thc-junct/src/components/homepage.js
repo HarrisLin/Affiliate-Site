@@ -1,12 +1,10 @@
 import React, { Component } from 'react';
 import { Redirect } from 'react-router-dom';
-/*import logo from './logo.svg';
-import './App.css';*/
 
 import ProductIcon from './productIcon'
 import ProductReview from './productReview'
+import '../css/homepage.css'
 
-//var weed = 
 class Homepage extends Component {
 
   constructor(props) {
@@ -50,9 +48,16 @@ class Homepage extends Component {
     });
   }
 
+  backClick = () => {
+    this.setState({
+      renderProductReview: false,
+    });
+  }
+
   render() {
     return (
       <div>
+        {this.state.renderProductReview && <button className="backButton" onClick={this.backClick}>Back</button>}
         {!this.state.renderProductReview && <p className="App-intro">
           Select a product to see it&apos;s review
         </p>}
