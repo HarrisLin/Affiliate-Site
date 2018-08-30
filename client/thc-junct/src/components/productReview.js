@@ -76,7 +76,6 @@ class ProductReview extends Component {
       <div className="container">
         <div><span className="fa fa-sign-in" /> {this.state.name}</div>
         {this.state.message && <div>{this.state.message}</div>}
-
         {this.state.productLoaded && this.createImage()}
         {this.state.productLoaded && this.loadReview()}
       </div>
