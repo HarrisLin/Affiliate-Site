@@ -1,4 +1,5 @@
 var multer = require('multer');
+var path = require('path');
 var { findProduct, writeReview, getProduct, getMostRecentReviews } = require('../models/productHelper')
 
 function cleanName(name){
@@ -12,7 +13,7 @@ const storage = multer.diskStorage({
     },
     filename(req, file, cb) {
       var fileName = req.body.name
-      cb(null, `${fileName}.jpg`)
+      cb(null, `${fileName}` + path.extname(file.originalname))
     }
   })
 var upload = multer({ storage: storage})
