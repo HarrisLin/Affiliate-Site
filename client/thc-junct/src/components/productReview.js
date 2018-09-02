@@ -48,7 +48,8 @@ class ProductReview extends Component {
 
   createImage = () => {
     //TODO dont hardcode url later
-    var imageURL = 'http://localhost:8080/'+this.state.product.imagePath;
+    var port = process.env.PORT || 8080;
+    var imageURL = 'http://localhost:' + port + '/' + this.state.product.imagePath;
     return (<div className="reviewIcon">
       <div className="title">{this.state.product.name}</div>
       <img src={imageURL} alt="Product" onError={(e) =>{e.target.src=defaultImage}}/>

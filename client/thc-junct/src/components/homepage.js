@@ -35,7 +35,8 @@ class Homepage extends Component {
     const self = this;
     var productList = this.state.products.map(function(product, i) {
       //dont hardcode location use __hostname or something later
-      var imageLocation = 'http://localhost:8080/'+product.imagePath;
+      var port = process.env.PORT || 8080;
+      var imageLocation = 'http://localhost:' + port + '/'+product.imagePath;
       return <ProductIcon key={i} name={product.name} image={imageLocation} onClick={() => self.iconClick(product.name)}/>
     })
     return productList;
