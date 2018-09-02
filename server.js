@@ -57,4 +57,5 @@ require('./routes/accounts.js')(app, passport);
 require('./routes/products.js')(app);
 
 const port = process.env.PORT || 8080;
+console.log("porty server: " + port)
 app.listen(port, () => console.log("Listening on port: " + port));
