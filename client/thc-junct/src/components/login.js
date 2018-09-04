@@ -55,7 +55,7 @@ class Login extends Component {
     return (
       <div className="container">
         <h1><span className="fa fa-sign-in" /> Login</h1>
-        {this.state.message && <div className="warning">{this.state.message}</div>}
+        {this.state.message && <div className="alert alert-danger">{this.state.message}</div>}
         <form onSubmit={this.handleSubmit}>
           <div className="form-group">
             <label>Email</label>

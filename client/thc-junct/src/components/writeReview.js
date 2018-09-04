@@ -6,9 +6,10 @@ class Review extends Component {
     super(props);
     this.state = {
       name: '',
-      review: ' ',
-      affLink: ' ',
+      review: '',
+      affLink: '',
       message: null,
+      messageStyle: null,
     }
 
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -26,7 +27,17 @@ class Review extends Component {
     });
     
     var body = await response.json();
-    this.setState({message: body.message});
+    if(response.status == 200){
+      this.setState({
+        message: body.message,
+        messageStyle: "alert alert-success",
+      });
+    } else {
+      this.setState({
+        message: body.message,
+        messageStyle: "alert alert-danger",
+      });
+    }
   };
 
   handleNameChange = (event) => {
@@ -50,26 +61,26 @@ class Review extends Component {
       <div>
         <div className="container">
           <h1><span className="fa fa-sign-in" /> Review</h1>
-          {this.state.message && <div>{this.state.message}</div>}
+          {this.state.message && <div className={this.state.messageStyle}>{this.state.message}</div>}
           <form onSubmit={this.handleSubmit}>
             <div className="form-group">
               <label>Product Name</label>
               <input id="name" type="text" className="form-control" name="name"
-                 value={this.state.name} onChange={this.handleNameChange}/>
+                 value={this.state.name} onChange={this.handleNameChange} required/>
             </div>
             <div className="form-group">
               <label>Review</label>
               <textarea id="review" type="text" className="form-control" name="review"
-                 value={this.state.review} onChange={this.handleReviewChange}></textarea>
+                 value={this.state.review} onChange={this.handleReviewChange} required></textarea>
             </div>
             <div className="form-group">
               <label>Affiliate Link</label>
               <input id="affLink" type="text" className="form-control" name="affLink"
-                 value={this.state.affLink} onChange={this.handleAffLinkChange}/>
+                 value={this.state.affLink} onChange={this.handleAffLinkChange} required/>
             </div>
             <div className="form-group">
               <label>Product Image</label>
-              <input id="productImage" className="form-control" name="image" type="file" />
+              <input id="productImage" className="form-control" name="image" type="file" required/>
             </div>
             <button type="submit" className="btn btn-warning btn-lg">Post Review</button>
           </form>

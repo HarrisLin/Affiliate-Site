@@ -14,8 +14,6 @@ const session      = require('express-session');
 
 const MongoStore = require('connect-mongo')(session);
 
-const config     = require('./config/credentials.json');
-
 const app = express()
 
 var url = 'mongodb://localhost/accounts'
@@ -52,7 +50,9 @@ app.use(passport.initialize());
 app.use(passport.session()); // persistent login sessions
 app.use(flash()); // use connect-flash for flash messages stored in session
 
+//currently media folder is unused so no static files are served
 app.use('/media', express.static(__dirname + '/media'));
+
 app.use('/', express.static(__dirname + '/client/thc-junct/build'));
 
 require('./routes/accounts.js')(app, passport);

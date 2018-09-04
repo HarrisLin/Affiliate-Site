@@ -10,6 +10,7 @@ class ProductReview extends Component {
       product: {},
       message: null,
       productLoaded: false,
+      messageStyle: null,
     }
   }
 
@@ -72,9 +73,9 @@ class ProductReview extends Component {
 
   render() {
     return (
-      <div className="container">
+      <div>
         <div><span className="fa fa-sign-in" /> {this.state.name}</div>
-        {this.state.message && <div>{this.state.message}</div>}
+        {this.state.message && <div className={this.state.messageStyle}>{this.state.message}</div>}
         {this.state.productLoaded && this.createImage()}
         {this.state.productLoaded && this.loadReview()}
       </div>

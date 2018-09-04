@@ -11,6 +11,7 @@ class Profile extends Component {
       address: ' ',
       postalCode: ' ',
       message: null,
+      messageStyle: null,
     }
 
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -51,7 +52,17 @@ class Profile extends Component {
     });
     
     var body = await response.json();
-    this.setState({message: body.message});
+    if(response.status == 200) {
+      this.setState({
+        message: body.message,
+        messageStyle: "alert alert-success",
+      });
+    } else {
+      this.setState({
+        message: body.message,
+        messageStyle: "alert alert-danger",
+      });
+    }
   };
 
   handleCountryChange = (event) => {
@@ -87,7 +98,7 @@ class Profile extends Component {
       <div>
         <div className="container">
           <h1><span className="fa fa-sign-in" /> Profile</h1>
-          {this.state.message && <div>{this.state.message}</div>}
+          {this.state.message && <div className={this.state.messageStyle}>{this.state.message}</div>}
           <form onSubmit={this.handleSubmit}>
             <div className="form-group">
               <label>Email</label>
