@@ -1,13 +1,34 @@
 var multer = require('multer');
 var path = require('path');
+var cloudinary = require('cloudinary');
+var cloudinaryStorage = require('multer-storage-cloudinary');
 var { findProduct, writeReview, getProduct, getMostRecentReviews } = require('../models/productHelper')
 
-function cleanName(name){
+const config = require('../config/credentials.json');
+
+cloudinary.config({
+    cloud_name: config.cloudName,
+    api_key: config.cloudinaryKey,
+    api_secret: config.cloudinarySecret
+});
+
+//Unused remove later
+/*function cleanName(name){
     var result = name.toLowerCase();
     return result.replace(/\W+/g, '');
-}
+}*/
+var storage = cloudinaryStorage({
+    cloudinary: cloudinary,
+    folder: 'review-pictures',
+    allowedFormats: ['jpg', 'png'],
+    filename(req, file, cb) {
+      var fileName = req.body.name
+      cb(null, `${fileName}`)
+    }
+});
 
-const storage = multer.diskStorage({
+//Since heroku doesnt store files after deployment, switched to cloudinary
+/*const storage = multer.diskStorage({
     destination(req, file, cb) {
       cb(null, 'media/')
     },
@@ -15,8 +36,9 @@ const storage = multer.diskStorage({
       var fileName = req.body.name
       cb(null, `${fileName}` + path.extname(file.originalname))
     }
-  })
-var upload = multer({ storage: storage})
+  })*/
+
+var upload = multer({ storage: storage});
 
 module.exports = function(app) {
 
@@ -33,9 +55,9 @@ module.exports = function(app) {
     });
 
     app.post('/dev/product', upload.single('image'), function(req, res) {
-        console.log(req.body.name)
         req.body.author = req.user.local.email;
-        req.body.path   = req.file.path;
+        console.log(req.file)
+        req.body.path   = req.file.url;
         req.body.name = req.body.name;
         writeReview(req.body).then(function(success){
             if(success) return res.status(200).json({message: "Product review posted!"});

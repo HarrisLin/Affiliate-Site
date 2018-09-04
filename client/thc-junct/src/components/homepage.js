@@ -34,10 +34,7 @@ class Homepage extends Component {
   createIcons = () => {
     const self = this;
     var productList = this.state.products.map(function(product, i) {
-      //dont hardcode location use __hostname or something later
-      var port = process.env.PORT || 8080;
-      console.log("web porty: " + port);
-      var imageLocation = 'http://localhost:' + port + '/'+product.imagePath;
+      var imageLocation = product.imagePath;
       return <ProductIcon key={i} name={product.name} image={imageLocation} onClick={() => self.iconClick(product.name)}/>
     })
     return productList;
