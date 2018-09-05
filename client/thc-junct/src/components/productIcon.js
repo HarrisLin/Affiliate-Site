@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { Redirect } from 'react-router-dom';
 import '../css/icon.css'
 var defaultImage = require('../images/UnavailableImage.png')
 
@@ -20,7 +19,7 @@ class ProductIcon extends Component {
     return (
       <div className="icon" onClick={this.props.onClick}>
         <div className="title">{this.props.name}</div>
-        <img src={this.props.image} onError={(e) =>{e.target.src=defaultImage}}/>
+        <img src={this.props.image} alt="icon" onError={(e) =>{e.target.src=defaultImage}}/>
       </div>
     );
   }

@@ -1,9 +1,6 @@
 import React, { Component } from 'react';
-import { Redirect, Route } from 'react-router-dom';
 
-import logo from './logo.svg';
 import './App.css';
-
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 import Signup from './components/signup'
@@ -22,7 +19,7 @@ class App extends Component {
     this.state = {
       response: '',
       homepage: true,
-      loginRedirect: false, // separate these into own render functions later on
+      loginRedirect: false,
       signupRedirect: false,
       profileRedirect: false,
       reviewRedirect: false,

@@ -52,7 +52,7 @@ class Profile extends Component {
     });
     
     var body = await response.json();
-    if(response.status == 200) {
+    if(response.status === 200) {
       this.setState({
         message: body.message,
         messageStyle: "alert alert-success",
