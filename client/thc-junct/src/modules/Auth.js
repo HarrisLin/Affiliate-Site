@@ -16,6 +16,11 @@ var Auth = (function() {
 		});
 	}
 
+	function login() {
+		authenticated = true;
+		localStorage.setItem('authenticated', JSON.stringify(true));
+	}
+
 	function logout(){
 		authenticated = false;
 		localStorage.setItem('authenticated', JSON.stringify(false));
@@ -27,6 +32,7 @@ var Auth = (function() {
 		checkAuth: checkAuth,
 		isAuth	 : isAuth,
 		logout   : logout,
+		login    : login,
 	}
 })();
 

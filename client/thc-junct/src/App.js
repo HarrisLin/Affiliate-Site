@@ -90,7 +90,6 @@ class App extends Component {
 
     if(response.status === 200) {
       Auth.logout();
-      this.setState({ authenticated: false})
       window.location.reload();
     }
   }

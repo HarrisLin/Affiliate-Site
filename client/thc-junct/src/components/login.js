@@ -38,7 +38,7 @@ class Login extends Component {
     var body = await response.json();
 
     if(response.status === 200) {
-      Auth.checkAuth();
+      Auth.login();
       window.location.reload();
     }
     if(response.status === 400) {
