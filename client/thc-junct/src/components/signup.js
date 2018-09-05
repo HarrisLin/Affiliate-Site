@@ -6,6 +6,7 @@ class Signup extends Component {
     super(props);
     this.state = {
       message: null,
+      messageStyle: null,
     }
 
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -36,10 +37,15 @@ class Signup extends Component {
     var body = await response.json();
 
     if(response.status === 200) {
-      this.setState({message: body.message});
-    }
-    if(response.status === 400) {
-      this.setState({message: body.message})
+      this.setState({
+        message: body.message,
+        messageStyle: "alert alert-success",
+      });
+    } else{
+      this.setState({
+        message: body.message,
+        messageStyle: "alert alert-danger",
+      });
     }
   };
 
@@ -52,15 +58,15 @@ class Signup extends Component {
       <div>
         <div className="container">
           <h1><span className="fa fa-sign-in" /> Signup</h1>
-          {this.state.message && <div className="warning">{this.state.message}</div>}
+          {this.state.message && <div className={this.state.messageStyle}>{this.state.message}</div>}
           <form onSubmit={this.handleSubmit}>
             <div className="form-group">
               <label>Email</label>
-              <input type="text" className="form-control" name="email" />
+              <input type="text" className="form-control" name="email" required/>
             </div>
             <div className="form-group">
               <label>Password</label>
-              <input type="password" className="form-control" name="password" />
+              <input type="password" className="form-control" name="password" required/>
             </div>
             <button type="submit" className="btn btn-warning btn-lg">Signup</button>
           </form>
