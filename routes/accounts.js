@@ -1,8 +1,9 @@
 var { saveShippingInfo, getShippingInfo } = require('../models/profile')
+var { userReviews } = require ('../models/productHelper');
 
 module.exports = function(app, passport) {
 
-    //Homepage
+    //Unused
     app.get('/dev', function(req, res) {
         res.json({
             express:"hello wordly"
@@ -58,11 +59,7 @@ module.exports = function(app, passport) {
         }).send();
     });
 
-    // =====================================
-    // PROFILE SECTION =====================
-    // =====================================
-    // we will want this protected so you have to be logged in to visit
-    // we will use route middleware to verify this (the isLoggedIn function)
+    //gets profile info
     app.get('/dev/profile', isLoggedIn, function(req, res) {
         getShippingInfo(req.user.local.email).then(function(info){
             res.json({
@@ -72,7 +69,16 @@ module.exports = function(app, passport) {
         });        
     });
 
-    //fix log out, current doesnt delete all related sessions, so doesnt actually log out 
+    app.get('/dev/getOwnReviews', isLoggedIn, function(req, res) {
+        userReviews(req.user.local.email).exec(function(err, result){
+            if (err) return res.status(400).send();
+            console.log(result);
+            return res.status(200).json({
+                reviews: result
+            });
+        })
+    });
+
     app.get('/dev/logout', function(req, res) {
         console.log(req.session.id)
         req.session.destroy(function (err) {
@@ -82,6 +88,7 @@ module.exports = function(app, passport) {
         });
     });
 
+    //checks whether a user is logged in 
     app.get('/dev/loggedin', isLoggedIn, function(req, res){
         res.status(200).send();
     });

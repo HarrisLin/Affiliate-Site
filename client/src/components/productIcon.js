@@ -19,6 +19,7 @@ class ProductIcon extends Component {
     return (
       <div className="icon" onClick={this.props.onClick}>
         <div className="title">{this.props.name}</div>
+        <div className="hoverText">See Review</div>
         <img src={this.props.image} alt="icon" onError={(e) =>{e.target.src=defaultImage}}/>
       </div>
     );

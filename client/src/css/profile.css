@@ -1,0 +1,11 @@
+.profileNav tr td {
+	border: 1px solid black;
+	color: purple;
+	padding: 4%;
+}
+
+.profileNav {
+	float: left;
+	cursor: pointer;
+	margin: 3%;
+}

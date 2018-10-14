@@ -45,7 +45,7 @@ function getMostRecentReviews() {
 function getProduct(name){
 	return findProduct(name).then(function(product){
 		//return null for no product found
-		if(product == null) return null;
+		//if(product == null) return null;
 		return product;
 	});
 }
@@ -66,9 +66,14 @@ function findProduct(name) {
     return queryPromise;
 }
 
+function userReviews(email) {
+	return Product.find({'author' : email});
+}
+
 module.exports = {
 	findProduct,
 	writeReview,
 	getProduct,
 	getMostRecentReviews,
+	userReviews,
 }

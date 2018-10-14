@@ -14,7 +14,7 @@
 
 .review .credentials {
 	width: 60%;
-	border: solid;
+	border: none;
 	border-radius: 25px;
 	margin: auto;
 	padding: 3%;
@@ -40,5 +40,5 @@
 	border-style: outset;
 	border-top-left-radius: 25px;
 	border-bottom-right-radius: 25px;
-	width: 70%;
+	width: 40%;
 }

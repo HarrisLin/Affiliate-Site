@@ -56,8 +56,7 @@ module.exports = function(app) {
 
     app.post('/dev/product', upload.single('image'), function(req, res) {
         req.body.author = req.user.local.email;
-        console.log(req.file)
-        req.body.path   = req.file.url;
+        req.body.path   = req.file.secure_url;
         req.body.name = req.body.name;
         writeReview(req.body).then(function(success){
             if(success) return res.status(200).json({message: "Product review posted!"});
@@ -73,10 +72,6 @@ module.exports = function(app) {
             res.status(200).json({reviews: result});
         });
     });
-    //to add a new product 
-    /*app.put('/dev/product', /*add middleware for admin check function(req, res){
-
-    });*/
 };
 
 // route middleware to make sure a user is logged in

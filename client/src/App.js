@@ -5,7 +5,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 
 import Signup from './components/signup'
 import Login from  './components/login'
-import Profile from './components/profile'
+import Profile from './components/profile/profile'
 import Review from './components/writeReview'
 import Homepage from './components/homepage'
 
