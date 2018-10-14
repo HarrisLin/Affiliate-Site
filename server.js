@@ -53,7 +53,7 @@ app.use(flash()); // use connect-flash for flash messages stored in session
 //currently media folder is unused so no static files are served
 app.use('/media', express.static(__dirname + '/media'));
 
-app.use('/', express.static(__dirname + '/client/thc-junct/build'));
+app.use('/', express.static(__dirname + '/client/build'));
 
 require('./routes/accounts.js')(app, passport);
 require('./routes/products.js')(app);
